@@ -1,4 +1,4 @@
-# 🎤 VocalHire AI – Your AI Mock Interview Assistant
+# VocalHire AI – Your AI Mock Interview Assistant
 
 **VocalHire AI** is a cutting-edge mock interview system powered by AI, voice interactions, and real-time feedback. It helps job seekers practice interviews, get instant feedback, and improve their confidence — all in one seamless web experience.
 
