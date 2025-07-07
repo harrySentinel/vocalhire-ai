@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 Features
+## ➣ Features
 
 - 🎙️ **Voice-Driven Mock Interviews** (via Vapi SDK)
 - 🔐 **Firebase Authentication**
@@ -16,7 +16,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## ➣ Tech Stack
 
 | Tech              | Role                          |
 |------------------|-------------------------------|
@@ -30,7 +30,7 @@
 
 ---
 
-## 🔧 Setup Instructions
+## ➣ Setup Instructions
 
 ```bash
 # Clone the repo
