@@ -6,18 +6,11 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import {Form} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import Link from "next/link"
+import { toast } from "sonner";
 
 
 const authFormSchema = (type: FormType) => {
@@ -29,18 +22,31 @@ const authFormSchema = (type: FormType) => {
 }
 
 const AuthForm = ({ type }: {type: FormType}) => {
+    const formSchema = authFormSchema(type);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      password: ""
     },
   })
 
-  // 2. Define a submit handler
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    try{
+      if(type === 'sign-up'){
+        console.log('SIGN UP', values);
+      } else {
+        console.log('SIGN IN', values);
+      }
+
+    } catch(error){
+      console.log(error);
+      toast.error(`There was an error: ${error}`)
+    }
   }
 
   const isSignIn = type === 'sign-in';
