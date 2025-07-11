@@ -1,5 +1,6 @@
 "use client"
 
+type FormType = 'sign-in' | 'sign-up';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -19,9 +20,13 @@ import Image from "next/image"
 import Link from "next/link"
 
 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-})
+const authFormSchema = (type: FormType) => {
+  return z.object({
+    name: type === 'sign-up' ? z.string().min(3) : z.string().optional(),
+    email: z.string().email(),
+    password: z.string().min(3),
+  })
+}
 
 const AuthForm = ({ type }: {type: FormType}) => {
 
