@@ -16,13 +16,14 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import Link from "next/link"
 
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
 })
 
-const AuthForm = () => {
+const AuthForm = ({ type }: {type: FormType}) => {
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,6 +38,8 @@ const AuthForm = () => {
     console.log(values)
   }
 
+  const isSignIn = type === 'sign-in';
+
   return (
     <div className="card-border lg:min-w-[566px]">
       <div className="flex flex-col gap-6 card py-14 px-10">
@@ -50,10 +53,23 @@ const AuthForm = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">
+            {!isSignIn && <p>Name</p>}
+            <p>Email</p>
+            <p>Password</p>
            
-            <Button type="submit">Submit</Button>
+            <Button className="btn" type="submit">{isSignIn ? 'Sign in' : 'Create an Account'}</Button>
           </form>
         </Form>
+
+<div className="flex justify-center items-center">
+        <p className="text-center">
+           {isSignIn ? 'No account yet?' : 'Have an account already'}
+        </p>
+
+         <Link href={!isSignIn ? '/sign-in' : '/sign-up'} className='font-bold text-user-primary ml-1'> 
+            {!isSignIn ? "Sign in" : 'Sign up'}
+         </Link>
+         </div>
       </div>
     </div>
   )
