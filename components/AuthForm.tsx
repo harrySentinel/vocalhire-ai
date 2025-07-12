@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
-import {Form} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import Link from "next/link"
 import { toast } from "sonner";
-
+import FormField from "./FormField";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -21,8 +21,8 @@ const authFormSchema = (type: FormType) => {
   })
 }
 
-const AuthForm = ({ type }: {type: FormType}) => {
-    const formSchema = authFormSchema(type);
+const AuthForm = ({ type }: { type: FormType }) => {
+  const formSchema = authFormSchema(type);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -36,14 +36,14 @@ const AuthForm = ({ type }: {type: FormType}) => {
 
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    try{
-      if(type === 'sign-up'){
+    try {
+      if (type === 'sign-up') {
         console.log('SIGN UP', values);
       } else {
         console.log('SIGN IN', values);
       }
 
-    } catch(error){
+    } catch (error) {
       console.log(error);
       toast.error(`There was an error: ${error}`)
     }
@@ -64,23 +64,42 @@ const AuthForm = ({ type }: {type: FormType}) => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 mt-4 form">
-            {!isSignIn && <p>Name</p>}
-            <p>Email</p>
-            <p>Password</p>
-           
+            {!isSignIn && (
+              <FormField
+                control={form.control}
+                name="name"
+                label="Name"
+                placeholder="Your Name" />
+            )}
+            <FormField
+              control={form.control}
+              name="email"
+              label="Email"
+              placeholder="Your email address"
+              type="email"
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              type="password"
+            />
+
             <Button className="btn" type="submit">{isSignIn ? 'Sign in' : 'Create an Account'}</Button>
           </form>
         </Form>
 
-<div className="flex justify-center items-center">
-        <p className="text-center">
-           {isSignIn ? 'No account yet?' : 'Have an account already'}
-        </p>
+        <div className="flex justify-center items-center">
+          <p className="text-center">
+            {isSignIn ? 'No account yet?' : 'Have an account already'}
+          </p>
 
-         <Link href={!isSignIn ? '/sign-in' : '/sign-up'} className='font-bold text-user-primary ml-1'> 
+          <Link href={!isSignIn ? '/sign-in' : '/sign-up'} className='font-bold text-user-primary ml-1'>
             {!isSignIn ? "Sign in" : 'Sign up'}
-         </Link>
-         </div>
+          </Link>
+        </div>
       </div>
     </div>
   )
