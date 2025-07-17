@@ -204,6 +204,19 @@
 //   "/yahoo.png",
 // ];
 
+// Define the Interview interface
+interface Interview {
+  id: string;
+  userId: string;
+  role: string;
+  type: string;
+  techstack: string[];
+  level: string;
+  questions: string[];
+  finalized: boolean;
+  createdAt: string;
+}
+
 export const dummyInterviews: Interview[] = [
   {
     id: "1",
