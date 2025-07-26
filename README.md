@@ -6,7 +6,7 @@
 
 ## ➣ Features
 
-- 🎙️ **Voice-Driven Mock Interviews** (via Vapi SDK)
+- 🎙️ **Voice-Driven Mock Interviews (via Vapi SDK)** 
 - 🔐 **Firebase Authentication**
 - 📄 **AI-Powered Interview Generation**
 - 🧠 **Google Gemini API Integration**
