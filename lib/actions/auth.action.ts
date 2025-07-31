@@ -3,6 +3,8 @@
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
 
+const ONE_WEEK = 60 * 60 * 24 * 7; // 7 days in seconds
+
 export async function signUp(params: SignUpParams) {
   const { uid, name, email } = params;
 
@@ -12,7 +14,7 @@ export async function signUp(params: SignUpParams) {
     if (userRecord.exists)
       return {
         success: false,
-        message: "User already exists. Please sign in.",
+        message: "User already exists. Please sign in instead.",
       };
 
     // save user to db
@@ -43,4 +45,20 @@ export async function signUp(params: SignUpParams) {
       message: "Failed to create account. Please try again.",
     };
   }
+}
+
+export async function setSessionCookie(idToken: string) {
+  const cookieStore = await cookies();
+
+  const sessionCookie = await auth.createSessionCookie(idToken. {
+    expiresIn: ONE_WEEK*1000, // 7 days in milliseconds
+  })
+
+  cookieStore.set('session', sessionCookie, {
+    maxAge: ONE_WEEK,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    path: '/',
+    sameSite: 'lax',
+  })
 }
